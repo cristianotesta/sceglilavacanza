@@ -1,1 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorteggio Meta Vacanze</title>
+  <!-- Import del font Poppins per un look moderno -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Schermata di inserimento delle mete -->
+  <div id="input-container">
+    <h1>Inserisci le Mete per le Vacanze</h1>
+    <p class="subtext">I partecipanti sono:</p>
+    <div class="participants">
+      <div class="participant">Sara</div>
+      <div class="participant">Valerio</div>
+      <div class="participant">Rachele</div>
+      <div class="participant">Francesco</div>
+      <div class="participant">Giuseppe</div>
+      <div class="participant">Cristiano</div>
+      <div class="participant">Francesca</div>
+      <div class="participant">Viviana</div>
+    </div>
+    <form id="destinationsForm">
+      <div class="cards">
+        <div class="card">
+          <h3 class="participant-name">Sara</h3>
+          <input type="text" id="destination1" placeholder="Inserisci la tua meta" required>
+        </div>
+        <div class="card">
+          <h3 class="participant-name">Valerio</h3>
+          <input type="text" id="destination2" placeholder="Inserisci la tua meta" required>
+        </div>
+        <div class="card">
+          <h3 class="participant-name">Rachele</h3>
+          <input type="text" id="destination3" placeholder="Inserisci la tua meta" required>
+        </div>
+        <div class="card">
+          <h3 class="participant-name">Francesco</h3>
+          <input type="text" id="destination4" placeholder="Inserisci la tua meta" required>
+        </div>
+        <div class="card">
+          <h3 class="participant-name">Giuseppe</h3>
+          <input type="text" id="destination5" placeholder="Inserisci la tua meta" required>
+        </div>
+        <div class="card">
+          <h3 class="participant-name">Cristiano</h3>
+          <input type="text" id="destination6" placeholder="Inserisci la tua meta" required>
+        </div>
+        <div class="card">
+          <h3 class="participant-name">Francesca</h3>
+          <input type="text" id="destination7" placeholder="Inserisci la tua meta" required>
+        </div>
+        <div class="card">
+          <h3 class="participant-name">Viviana</h3>
+          <input type="text" id="destination8" placeholder="Inserisci la tua meta" required>
+        </div>
+      </div>
+    </form>
+    <button type="button" id="startButton">Inizia il Sorteggio</button>
+  </div>
+
+  <!-- Schermata della ruota -->
+  <div id="wheel-container" style="display: none;">
+    <div id="canvas-container">
+      <canvas id="wheelCanvas" width="500" height="500"></canvas>
+      <!-- Puntatore in cima alla ruota -->
+      <div id="pointer"></div>
+    </div>
+    <br>
+    <button type="button" id="spinButton">Gira la Ruota!</button>
+  </div>
+
+  <!-- Schermata del risultato -->
+  <div id="result-container" style="display: none;">
+    <h2>Il Vincitore è...</h2>
+    <p id="winnerInfo"></p>
+    <button type="button" id="restartButton">Nuovo Sorteggio</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
