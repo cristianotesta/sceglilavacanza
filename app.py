@@ -67,13 +67,19 @@ Regole per l'output:
 """
 
 
-def pdf_to_pil_images(pdf_bytes: bytes, dpi: int = 150) -> list:
+def pdf_to_pil_images(pdf_bytes: bytes, dpi: int = 100) -> list:
     """Convert PDF bytes to a list of PIL JPEG images."""
     raw = convert_from_bytes(pdf_bytes, dpi=dpi)
     result = []
     for img in raw:
+        # Resize to max 1024px on longest side to reduce token usage
+        max_side = 1024
+        w, h = img.size
+        if max(w, h) > max_side:
+            scale = max_side / max(w, h)
+            img = img.resize((int(w * scale), int(h * scale)), Image.LANCZOS)
         buf = BytesIO()
-        img.save(buf, format="JPEG", quality=85)
+        img.save(buf, format="JPEG", quality=80)
         buf.seek(0)
         result.append(Image.open(buf).copy())
     return result
@@ -144,8 +150,9 @@ def analyze():
     raw_text = ""
     try:
         genai.configure(api_key=api_key)
+        model_name = request.form.get("model", "gemini-2.0-flash").strip() or "gemini-2.0-flash"
         model = genai.GenerativeModel(
-            model_name="gemini-2.0-flash",
+            model_name=model_name,
             system_instruction=SYSTEM_PROMPT,
             generation_config=genai.GenerationConfig(
                 temperature=0.0,
@@ -168,7 +175,13 @@ def analyze():
     except google_exceptions.PermissionDenied:
         return jsonify({"error": "API Key Gemini non valida o non autorizzata."}), 401
     except google_exceptions.ResourceExhausted:
-        return jsonify({"error": "Quota Gemini API esaurita. Riprova tra qualche minuto."}), 429
+        return jsonify({"error": (
+            "Quota Gemini API esaurita.\n"
+            "Soluzioni:\n"
+            "1. Attendi 1 minuto e riprova (limite RPM)\n"
+            "2. Prova il modello 'gemini-1.5-flash' nel selettore modello\n"
+            "3. Verifica la quota su: https://aistudio.google.com/app/apikey"
+        )}), 429
     except google_exceptions.GoogleAPIError as e:
         return jsonify({"error": f"Errore API Google: {e}"}), 502
     except json.JSONDecodeError as e:
@@ -194,3 +207,4 @@ def analyze():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
+
