@@ -83,6 +83,19 @@
           </label>
           <input type="password" id="api-key" name="api_key" class="form-input" placeholder="AIzaSy..." autocomplete="off" />
         </div>
+        <!-- Model selector -->
+        <div class="form-row">
+          <label for="model-select" class="form-label">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+            Modello Gemini
+          </label>
+          <select id="model-select" name="model" class="form-input">
+            <option value="gemini-2.0-flash">gemini-2.0-flash (consigliato)</option>
+            <option value="gemini-1.5-flash">gemini-1.5-flash (alternativa quota)</option>
+            <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite (più veloce)</option>
+            <option value="gemini-1.5-pro">gemini-1.5-pro (più preciso)</option>
+          </select>
+        </div>
 
         <div class="form-actions">
           <button type="submit" class="btn-primary" id="submit-btn">
