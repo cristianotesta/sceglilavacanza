@@ -1,0 +1,5 @@
+flask>=3.0
+google-generativeai>=0.8
+google-api-core>=2.15
+pdf2image>=1.17
+Pillow>=10.0
